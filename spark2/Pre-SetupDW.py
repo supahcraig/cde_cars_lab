@@ -64,7 +64,7 @@ import argparse
 #               CREATE SPARK SESSION
 #---------------------------------------------------
 spark = SparkSession.builder.appName('Ingest').getOrCreate()
-#spark.conf.set("spark.sql.legacy.allowCreatingManagedTableUsingNonemptyLocation", "true")
+spark.conf.set("spark.sql.legacy.allowCreatingManagedTableUsingNonemptyLocation", "true")
 
 
 
