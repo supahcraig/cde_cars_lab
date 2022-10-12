@@ -64,7 +64,9 @@ import argparse
 #               CREATE SPARK SESSION
 #---------------------------------------------------
 spark = SparkSession.builder.appName('Ingest').getOrCreate()
-#spark.conf.set("spark.sql.legacy.allowCreatingManagedTableUsingNonemptyLocation", "true")
+
+# Spark 3 does not support this option
+#spark.conf.set("spark.sql.legacy.allowCreatingManagedTableUsingNonemptyLocation", "true") 
 
 
 
@@ -79,16 +81,6 @@ spark = SparkSession.builder.appName('Ingest').getOrCreate()
 #                           Therefore, set variable as:
 #                                 s3BucketName = "s3a://usermarketing-cdp-demo"
 #-----------------------------------------------------------------------------------
-#parser = argparse.ArgumentParser()
-#parser.add_argument("--prefix")
-#parser.add_argument("--bucket")
-#args = parser.parse_args()
-
-#prefix = args.prefix
-#bucket = args.bucket
-
-#print(args)
-#print(prefix, bucket)
 
 s3BucketName = "s3a://goes-se-sandbox01/cnelson2/cde-workshop"         # <--- Update bucket location
 prefix = 'cnelson2'
