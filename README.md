@@ -1,30 +1,28 @@
-# cde_cars_lab
+# CDE Cars Lab
 
 
-coming soon!
 
 
-Taken from Paul's CDE workshop.
+
+Most of this was inspired or directly stolen from Paul's CDE Workshop.
 https://docs.google.com/document/d/1qqfII1i4spfGnhKd9rZKnpSgt9UIFE07WbuulGQxn-U/edit
 (unclear if this is being maintained or what)
 
+And also a tutorial found on the Cloudera website.
 https://www.cloudera.com/tutorials/enrich-data-using-cloudera-data-engineering.html
+
+The source data can be found within that tutorial, but is also available by cloning this repo (recommended).
+https://www.cloudera.com/content/dam/www/marketing/tutorials/enrich-data-using-cloudera-data-engineering/tutorial-files.zip
 
 
 ## Assets:
 
-The Cloudera tutorial utilizes these assets, although some modification on them is required.   Code found in this repo simplifies this.
+Begin by cloning this repo to your local machine.   You will find 5 `csv` files that you will need to upload to a bucket your CDP environment has access to.  If the bucket & folder structure don't already exist, AWS will create it for you.   If you're doing this lab with other people, the prefix will help keep your assets separated from your colleagues'.
 
-```
-wget https://www.cloudera.com/content/dam/www/marketing/tutorials/enrich-data-using-cloudera-data-engineering/tutorial-files.zip
-```
-
-
-Unzip that, and upload the 5 `csv` files to your S3 bucket.   
 
 `aws s3 cp . s3://<YOUR BUCKET>/PREFIX/cde_workshop/ --recursive --exclude "*" --include "*.csv"`
 
-I put mine into `s3://goes-se-sandbox01/cnelson2/cde-workshop/`
+I put mine into `s3://goes-se-sandbox01/cnelson2/cde-workshop/`, which is the bucket associated with the Cloudera SE Sandbox environment.
 
 
 
@@ -44,10 +42,11 @@ I put mine into `s3://goes-se-sandbox01/cnelson2/cde-workshop/`
 
 Wait ~90 minutes for the service to deploy.
 
+
 ### Create a Virtual Cluster
 
 * Defaults for CPU & memory
-* Spark Version select Spark 3.x
+* Spark Version select Spark 3.x (there ode in this repo that works on spark 2, but the iceberg step will not work)
 * Enable Iceberg analytic tables
 
 ---
@@ -60,12 +59,21 @@ TODO:  turn these into CDE job arguments so you won't have to touch the code at 
 
 ### Pre-SetupDW.py
 
-Change the `s3BucketName` variable to the S3 path where you put your `csv` files.   *Do not include a trailing /*
+Change the `s3BucketName` variable to the S3 path where you put your `csv` files.   *Do not include a trailing /*.  
 Change `prefix` to your CDP username (or anything you want, really...just be consistent)
+
+It should look something like this when you're done:
+
+```
+s3BucketName = "s3a://goes-se-sandbox01/cnelson2/cde-workshop"
+prefix = 'cnelson2'
+```
+
 
 ### EnrichData_ETL.py
 
 Change `prefix` to your CDP username (or anything you want, really...just be consistent)
+
 
 ### Hive2Iceberg.py
 
