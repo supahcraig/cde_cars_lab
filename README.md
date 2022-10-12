@@ -84,6 +84,8 @@ Change `prefix` to your CDP username (or anything you want, really...just be con
 
 Change `prefix` to your CDP username (or anything you want, really...just be consistent)
 
+*NOTE* in the Airflow code there are references to `job_name`.  The job names found here need to match the job names you're about to create in CDE.
+
 ---
 
 
@@ -162,6 +164,9 @@ A Resources is basically a folder to hold any code objects you will want to crea
 ### Create a job
 
 * Job type = Spark 
+* Job name ==> this should match the job names in the Airflow code:
+  * `pre-setupDW`
+  * `enrich-ETL`
 * Application File, choose File
   * `Select from Resource`
   * Select `Pre-SetupDW.py` from the resource you just created; `Select File`
